@@ -56,13 +56,11 @@ pipeline {
                 sh 'venv/bin/coverage xml'
             }
 
-            // Publish JUnit test results
             junit allowEmptyResults: true, testResults: '**/pytest_junit.xml'
             junit allowEmptyResults: true, testResults: '**/pylint_junit.xml'
 
-            // Publish coverage report using Coverage Plugin
             publishCoverage adapters: [
-                coberturaAdapter(coberturaReportFile: '**/coverage.xml')
+                coberturaAdapter('**/coverage.xml')
             ],
             sourceFileResolver: sourceFiles('STORE_LAST_BUILD')
         }
